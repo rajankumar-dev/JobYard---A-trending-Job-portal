@@ -37,3 +37,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/test", testRouter);
 app.use("/api/v1/auth", authRouter);
+
+// Global error handling middleware
+import errorMiddleware from "./middlewares/errorMiddleware.js";
+app.use(errorMiddleware);
