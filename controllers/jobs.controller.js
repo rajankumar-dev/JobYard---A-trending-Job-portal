@@ -1,4 +1,5 @@
 import { Job } from "../models/jobsModel.js";
+import mongoose from "mongoose";
 
 // ========= create job controller =========
 export const createJobController = async (req, res, next) => {
@@ -73,4 +74,52 @@ export const deleteJobController = async (req, res, next) => {
   }
   await Job.deleteOne();
   res.status(200).json({ message: "Job deleted successfully" });
+};
+
+// ======= jobs stats controller =========
+export const jobStatsController = async (req, res) => {
+  const stats = await Job.aggregate([
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.id) } },
+    { $group: { _id: "$status", count: { $sum: 1 } } },
+  ]);
+  const defaultStats = {
+    pending: stats.find((item) => item._id === "pending")?.count || 0,
+    interview: stats.find((item) => item._id === "interview")?.count || 0,
+    declined: stats.find((item) => item._id === "declined")?.count || 0,
+  };
+
+  //monthly stats
+  let monthlyApplication = await Job.aggregate([
+    {
+      $match: {
+        createdBy: new mongoose.Types.ObjectId(req.user.Id),
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$createdAt" },
+          month: { $month: "$createdAt" },
+        },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  monthlyApplication = monthlyApplication.map((item) => {
+    const {
+      _id: { year, month },
+      count,
+    } = item;
+    const date = new Date(year, month - 1);
+    const monthYear = date.toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    });
+    return { month: monthYear, count };
+  });
+
+  res
+    .status(200)
+    .send({ totalJob: stats.length, defaultStats, monthlyApplication });
 };
