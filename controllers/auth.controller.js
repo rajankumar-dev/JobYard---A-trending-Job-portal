@@ -32,8 +32,34 @@ export const registerController = async (req, res, next) => {
   }
 };
 
-export const loginController = (req, res) => {
+export const loginController = async (req, res, next) => {
   const { email, password } = req.body;
-  // Here you would typically add logic to authenticate the user
-  res.json({ message: `User with email ${email} logged in successfully!` });
+  //validate
+  if (!email || !password) {
+    next("Please provide all required fields");
+  }
+  //find user
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    next("Invalid email or password");
+  }
+  //compare password
+  const isPasswordMatched = await user.comparePassword(password);
+  if (!isPasswordMatched) {
+    next("Invalid email or password");
+  }
+  user.password = undefined;
+  //token
+  const token = user.getJWTToken();
+  res.status(200).send({
+    success: true,
+    message: "User logged in successfully",
+    user: {
+      name: user.name,
+      fullname: user.fullname,
+      email: user.email,
+      location: user.location,
+    },
+    token,
+  });
 };
