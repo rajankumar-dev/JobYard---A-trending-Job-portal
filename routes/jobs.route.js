@@ -3,6 +3,7 @@ import userAuth from "../middlewares/authMiddleware.js";
 import {
   createJobController,
   getAllJobsController,
+  updateJobController,
 } from "../controllers/jobs.controller.js";
 
 //route object
@@ -14,5 +15,8 @@ router.post("/create-job", userAuth, createJobController);
 
 //GET JOB || GET
 router.get("/get-job", userAuth, getAllJobsController);
+
+//UPDATE JOBS || PUT || PATCH
+router.patch("/update-job/:id", userAuth, updateJobController);
 
 export default router;
