@@ -7,6 +7,7 @@ import morgan from "morgan";
 import testRouter from "./routes/test.route.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
+import jobRouter from "./routes/jobs.route.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/test", testRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/job", jobRouter);
 
 // Global error handling middleware
 import errorMiddleware from "./middlewares/errorMiddleware.js";
