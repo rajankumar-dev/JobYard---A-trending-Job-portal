@@ -56,3 +56,21 @@ export const updateJobController = async (req, res, next) => {
     updatedJob,
   });
 };
+
+// ======= Delete job controller =========
+export const deleteJobController = async (req, res, next) => {
+  const { id: jobId } = req.params;
+
+  //find job
+  const job = await Job.findOne({ _id: jobId });
+  if (!job) {
+    next(`No job found with id ${jobId}`);
+  }
+  //delete job
+  if (!req.user.id === job.createdBy.toString()) {
+    next("You are not authorized to delete this job");
+    return;
+  }
+  await Job.deleteOne();
+  res.status(200).json({ message: "Job deleted successfully" });
+};
