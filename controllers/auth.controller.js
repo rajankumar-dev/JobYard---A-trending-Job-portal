@@ -7,15 +7,25 @@ export const registerController = async (req, res, next) => {
     if (!name || !email || !password) {
       next("Please provide all required fields");
     }
-    // const existingUser = await User.findOne({ email });
-    // if (existingUser) {
-    //   next("User already exists with this email");
-    // }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      next("User already exists with this email");
+    }
     const user = await User.create({ name, email, password });
+
+    //token
+    const token = user.getJWTToken();
+
     res.status(201).send({
       success: true,
       message: "User registered successfully",
-      user,
+      user: {
+        name: user.name,
+        fullname: user.fullname,
+        email: user.email,
+        location: user.location,
+      },
+      token,
     });
   } catch (error) {
     next(error);
