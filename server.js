@@ -1,3 +1,6 @@
+//Api documentation imports
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "swagger-jsdoc";
 //package imports
 import express from "express";
 import dotenv from "dotenv";
@@ -8,21 +11,45 @@ import connectDB from "./config/db.js";
 // security packages
 import helmet from "helmet";
 import xssClean from "./middlewares/xssMiddleware.js";
+// import mongoSanitize from "express-mongo-sanitize";
 //route imports
 import testRouter from "./routes/test.route.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
 import jobRouter from "./routes/jobs.route.js";
 
-// Load environment variables from .env file
-dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 8080;
+
+// Load environment variables from .env file
+dotenv.config();
+//Swagger api configuration
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "JobYard - A trending Job portal",
+      version: "1.0.0",
+      description:
+        "This is a Job portal api documentation for JobYard - A trending Job portal",
+    },
+    servers: [
+      {
+        url: "http://localhost:8080",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+const swaggerDocs = swaggerDoc(swaggerOptions);
+
+//HomeRoute root
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Middlewares
 app.use(helmet());
 app.use(xssClean);
+// app.use(mongoSanitize());
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
@@ -40,9 +67,9 @@ connectDB()
   });
 
 // Sample route
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World!");
+// });
 
 app.use("/api/v1/test", testRouter);
 app.use("/api/v1/auth", authRouter);
