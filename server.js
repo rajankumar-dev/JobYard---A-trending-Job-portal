@@ -7,6 +7,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 // security packages
 import helmet from "helmet";
+import xssClean from "./middlewares/xssMiddleware.js";
 //route imports
 import testRouter from "./routes/test.route.js";
 import authRouter from "./routes/auth.route.js";
@@ -21,6 +22,7 @@ const port = process.env.PORT || 8080;
 
 // Middlewares
 app.use(helmet());
+app.use(xssClean);
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
