@@ -1,10 +1,22 @@
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage.jsx";
+import Login from "./pages/Login.jsx";
 import "./App.css";
+import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to JobYard</h1>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
