@@ -1,9 +1,13 @@
+//package imports
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./config/db.js";
 import cors from "cors";
 import morgan from "morgan";
-
+//file imports
+import connectDB from "./config/db.js";
+// security packages
+import helmet from "helmet";
+//route imports
 import testRouter from "./routes/test.route.js";
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
@@ -15,7 +19,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 
-// Middleware to parse JSON bodies
+// Middlewares
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
