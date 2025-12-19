@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import axios from "axios";
 import Spinner from "./../components/shared/Spinner";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -30,7 +31,7 @@ const Register = () => {
     try {
       // console.log(name, lastName, email, password);
       if (!name || !lastName || !email || !password) {
-        return alert("Please fill all the fields");
+        return toast.error("Please fill all the fields");
       }
       dispatch(showLoading());
       const { data } = await axios.post(
@@ -45,14 +46,14 @@ const Register = () => {
       console.log(data);
       dispatch(hideLoading());
       if (data?.success) {
-        alert("Register Successfully");
+        toast.success("Register Successfully");
         navigate("/login");
       } else {
-        alert("Something went wrong");
+        toast.error("Something went wrong");
       }
     } catch (error) {
       dispatch(hideLoading());
-      alert("Invalid form Details please try again !");
+      toast.error("Invalid form Details please try again !");
       console.log(error);
     }
   };
