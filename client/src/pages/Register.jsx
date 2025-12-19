@@ -46,7 +46,7 @@ const Register = () => {
       dispatch(hideLoading());
       if (data?.success) {
         alert("Register Successfully");
-        navigate("/dashboard");
+        navigate("/login");
       } else {
         alert("Something went wrong");
       }
