@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputFrom from "../components/shared/InputForm";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import axios from "axios";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -13,12 +16,39 @@ const Register = () => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
   // };
 
+  //hooks
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   //form  function
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(name, lastName, email, password);
+      // console.log(name, lastName, email, password);
+      if (!name || !lastName || !email || !password) {
+        return alert("Please fill all the fields");
+      }
+      dispatch(showLoading());
+      const { data } = await axios.post(
+        "http://localhost:8080/api/v1/auth/register",
+        {
+          name,
+          lastName,
+          email,
+          password,
+        }
+      );
+      console.log(data);
+      dispatch(hideLoading());
+      if (data?.success) {
+        alert("Register Successfully");
+        navigate("/dashboard");
+      } else {
+        alert("Something went wrong");
+      }
     } catch (error) {
+      dispatch(hideLoading());
+      alert("Invalid form Details please try again !");
       console.log(error);
     }
   };
