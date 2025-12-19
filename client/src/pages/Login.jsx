@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import axios from "axios";
 import Spinner from "../components/shared/Spinner";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,12 +32,15 @@ const Login = () => {
       if (data.success) {
         dispatch(hideLoading());
         localStorage.setItem("token", data.token);
-        alert("Login Successfully");
+        toast.success("Login Successfully");
         navigate("/dashboard");
+      } else {
+        dispatch(hideLoading());
+        toast.error(data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
-      alert("invalid form Details please try again !");
+      toast.error("invalid form Details please try again !");
       console.log(error);
     }
   };
