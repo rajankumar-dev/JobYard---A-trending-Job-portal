@@ -4,3 +4,37 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.form-container {
+     display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+/* form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #dbd8d8;
+} */
+.reg-logo {
+    height: 10rem;
+    width: auto;
+    margin: -2rem auto -2rem auto;
+}
+.btn-container {
+    justify-content: space-between;
+}
+.btn-container p {
+    margin-right: 4rem;
+    margin-top: 0.50rem;
+    
+}
