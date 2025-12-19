@@ -58,12 +58,6 @@ const Register = () => {
           handleChange={(e) => setPassword(e.target.value)}
           name="password"
         />
-        {/* <div class="mb-2">
-          <label className="form-label" htmlFor="location">
-            Location
-          </label>
-          <input type="text" className="form-control" id="location" />
-        </div> */}
         <div className="d-flex btn-container">
           <button type="submit" className="btn btn-primary">
             Register
