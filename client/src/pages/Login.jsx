@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import InputFrom from "../components/shared/InputForm";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Spinner from "../components/shared/Spinner";
 import { toast } from "react-toastify";
@@ -11,11 +11,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //redux state
+  const { loading } = useSelector((state) => state.alerts);
+
   //hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //redux state
-  const { loading } = useSelector((state) => state.alerts);
 
   //form  function
   const handleSubmit = async (e) => {

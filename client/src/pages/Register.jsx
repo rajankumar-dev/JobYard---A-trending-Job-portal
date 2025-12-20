@@ -47,7 +47,7 @@ const Register = () => {
       dispatch(hideLoading());
       if (data?.success) {
         toast.success("Register Successfully");
-        navigate("/login");
+        navigate("/dashboard");
       } else {
         toast.error("Something went wrong");
       }
