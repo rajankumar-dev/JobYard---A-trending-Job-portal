@@ -47,6 +47,9 @@ export const getAllJobsController = async (req, res, next) => {
   if (sort === "z-a") {
     queryResult = queryResult.sort("-position");
   }
+  if (!sort) {
+    queryResult = queryResult.sort("-createdAt");
+  }
 
   //pagination
   const page = Number(req.query.page) || 1;
