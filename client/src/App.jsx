@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import Login from "./pages/Login.jsx";
-import "./App.css";
-import Dashboard from "./pages/Dashboard";
+// import "./App.css";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -14,10 +14,10 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
