@@ -32,6 +32,9 @@ export const getAllJobsController = async (req, res, next) => {
   if (search) {
     queryObject.position = { $regex: search, $options: "i" };
   }
+  if (!search) {
+    queryObject.position = { $regex: "", $options: "i" };
+  }
   let queryResult = Job.find(queryObject);
 
   //sort
