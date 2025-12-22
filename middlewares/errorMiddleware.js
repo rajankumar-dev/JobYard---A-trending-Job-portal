@@ -24,6 +24,10 @@ const errorMiddleware = (err, req, res, next) => {
       err.keyValue
     )} field, please choose another value`;
   }
+  if (err.name === "CastError") {
+    defaultErrors.statusCode = 404;
+    defaultErrors.message = `Resource not found with id of ${err.value}`;
+  }
 };
 
 export default errorMiddleware;

@@ -24,13 +24,13 @@ const xssClean = (req, res, next) => {
       }
     }
   }
-  if (req.headers) {
-    for (let key in req.headers) {
-      if (typeof req.headers[key] === "string") {
-        req.headers[key] = xss(req.headers[key]);
-      }
-    }
-  }
+  // if (req.headers) {
+  //   for (let key in req.headers) {
+  //     if (typeof req.headers[key] === "string") {
+  //       req.headers[key] = xss(req.headers[key]);
+  //     }
+  //   }
+  // }
 
   next();
 };
