@@ -1,6 +1,6 @@
 import xss from "xss";
 
-const xssClean = (req, res, next) => {
+const xssClean = (req, _, next) => {
   if (req.body) {
     for (let key in req.body) {
       if (typeof req.body[key] === "string") {
