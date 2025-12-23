@@ -101,6 +101,7 @@ const router = express.Router();
  *      500:
  *       description: internal server error
  */
+
 //register || Post
 router.post("/register", registerController);
 
