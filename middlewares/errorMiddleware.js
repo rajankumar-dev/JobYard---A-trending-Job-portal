@@ -1,4 +1,4 @@
-const errorMiddleware = (err, _, res, _) => {
+const errorMiddleware = (err, _, res, next) => {
   console.error(err.stack);
   const defaultErrors = {
     statusCode: 500,
