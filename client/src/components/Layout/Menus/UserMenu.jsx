@@ -14,4 +14,9 @@ export const UserMenu = [
     path: "/user/profile",
     icon: "fa-solid fa-user",
   },
+  {
+    name: "Applied Jobs",
+    path: "/user/applied-jobs",
+    icon: "fa-solid fa-file-circle-check",
+  },
 ];
