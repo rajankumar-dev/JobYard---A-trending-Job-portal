@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Spinner from "../components/shared/Spinner";
 import { toast } from "react-toastify";
+import { setUser } from "../redux/features/auth/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setUser(null));
       dispatch(showLoading());
+
       const { data } = await axios.post(
         "http://localhost:8080/api/v1/auth/login",
         {

@@ -3,16 +3,28 @@ import "../../styles/Layout.css";
 import { UserMenu } from "./Menus/UserMenu";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
 
 const Layout = ({ children }) => {
+  //menu list
   const sidebarMenu = UserMenu;
+  //
+  const { user } = useSelector((state) => state.auth);
+
+  //hooks
+  const parseUser = JSON.parse(localStorage.getItem("user"));
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //handle logout
   const handleLogout = () => {
     localStorage.clear();
     toast.success("Logout Successfully");
+    dispatch(setUser(null));
     navigate("/login");
   };
+
   return (
     <>
       <div className="row">
@@ -21,7 +33,9 @@ const Layout = ({ children }) => {
             <h6>JOB PORTAL</h6>
           </div>
           <hr />
-          <p className="username">Welcome : username</p>
+          <p className="username">
+            Welcome <span>{user?.name}</span>
+          </p>
           <hr />
           <div className="menu">
             {sidebarMenu.map((menu) => {
