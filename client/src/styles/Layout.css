@@ -1,0 +1,41 @@
+.sidebar{
+    height: 100vh !important;
+    border-radius: 5px;
+    background-color: #2e2300;
+    box-shadow: 0 0 2px gray;
+    color: white;
+
+}
+.logo h6 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 20px 0;
+}
+.username {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.menu-item:hover {
+    background-color: #4b3b00;
+}
+.menu-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+.menu-item a:hover {
+    color: white;
+}
+.active {
+    background-color: #ffffff;
+}
+.active a, .active i{
+    color: #2e2300 ;
+}
