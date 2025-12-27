@@ -8,6 +8,11 @@ const Layout = ({ children }) => {
   const sidebarMenu = UserMenu;
   const location = useLocation();
   const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    toast.success("Logout Successfully");
+    navigate("/login");
+  };
   return (
     <>
       <div className="row">
@@ -31,14 +36,7 @@ const Layout = ({ children }) => {
                 </div>
               );
             })}
-            <div
-              className={`menu-item`}
-              onClick={() => {
-                localStorage.clear();
-                toast.success("Logout Successfully");
-                navigate("/login");
-              }}
-            >
+            <div className={`menu-item`} onClick={handleLogout}>
               <i className="fa-solid fa-right-from-bracket"></i>
               <Link to="/login">Logout</Link>
             </div>
