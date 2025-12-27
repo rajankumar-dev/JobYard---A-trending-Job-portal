@@ -29,28 +29,26 @@ export const updateUserController = async (req, res, next) => {
 };
 
 // get user data
-export const getUserController = async (req, res, next) => {
+export const getUserController = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
+
     if (!user) {
       return res.status(404).json({
         success: false,
         message: "User not found",
       });
-    } else {
-      res.status(200).json({
-        success: true,
-        message: "User data fetched successfully",
-        user,
-      });
     }
 
     res.status(200).json({
       success: true,
-      message: "User data fetched successfully",
       user,
     });
   } catch (error) {
-    next(error);
+    console.log("GetUser Error:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
