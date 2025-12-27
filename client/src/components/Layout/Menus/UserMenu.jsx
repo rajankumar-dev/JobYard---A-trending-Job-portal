@@ -19,4 +19,9 @@ export const UserMenu = [
     path: "/user/applied-jobs",
     icon: "fa-solid fa-file-circle-check",
   },
+  {
+    name: "Change Password",
+    path: "/user/change-password",
+    icon: "fa-solid fa-key",
+  },
 ];
